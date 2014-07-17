@@ -21,12 +21,12 @@ func Register(value interface{}) {
 
 	t := reflect.TypeOf(value)
 	if t == nil {
-		log.Fatalf("cannot register '%v'", value)
+		log.Panicf("cannot register '%v'", value)
 	}
 
 	s := t.Name()
 	if _, ok := registry[s]; ok {
-		log.Fatalf("type '%s' is already registered", s)
+		log.Panicf("type '%s' is already registered", s)
 	}
 
 	registry[s] = t
