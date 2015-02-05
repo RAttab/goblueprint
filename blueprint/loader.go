@@ -33,6 +33,13 @@ type Loader struct {
 func (loader *Loader) Add(src path.P, value interface{}) {
 	klog.KPrintf("blueprint.loader.add.debug", "src=%s, value={%T, %v}", src, value, value)
 
+	if typ, err := src.Type(loader.Values); err == nil {
+		if value, err = convert(typ, value); err != nil {
+			loader.ErrorAt(err, src)
+			return
+		}
+	}
+
 	if err := src.Set(loader.Values, value); err != nil {
 		loader.ErrorAt(err, src)
 	}
@@ -86,7 +93,9 @@ func (loader *Loader) Finish() (interface{}, error) {
 			klog.KPrintf("blueprint.loader.finish.debug", "src=%s, target=%s", src, dst)
 
 			if err == nil {
-				value, err = dst.Get(loader.Values)
+				if value, err = dst.Get(loader.Values); err == nil && value == nil {
+					err = fmt.Errorf("unable to link '%s' to nil value '%s'", src, dst)
+				}
 			}
 
 			if err == nil {
