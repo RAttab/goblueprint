@@ -7,6 +7,7 @@ import (
 	"github.com/datacratic/gopath/path"
 
 	"fmt"
+	"reflect"
 )
 
 // MaxLinksDepth is used to protect against cyclic links by limitting how far a
@@ -33,16 +34,21 @@ type Loader struct {
 func (loader *Loader) Add(src path.P, value interface{}) {
 	klog.KPrintf("blueprint.loader.add.debug", "src=%s, value={%T, %v}", src, value, value)
 
-	if typ, err := src.Type(loader.Values); err == nil {
-		if value, err = convert(typ, value); err != nil {
-			loader.ErrorAt(err, src)
-			return
+	err := src.Set(loader.Values, value)
+	if err == nil {
+		return
+	}
+
+	if err == path.ErrInvalidType {
+		var typ reflect.Type
+		if typ, err = src.Type(loader.Values); err == nil {
+			if value, err = convert(typ, value); err == nil {
+				err = src.Set(loader.Values, value)
+			}
 		}
 	}
 
-	if err := src.Set(loader.Values, value); err != nil {
-		loader.ErrorAt(err, src)
-	}
+	loader.ErrorAt(err, src)
 }
 
 // Type asserts the type of an object at the given path.  This is useful when
