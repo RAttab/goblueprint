@@ -5,7 +5,7 @@ package blueprint
 import (
 	"github.com/datacratic/goklog/klog"
 
-	"fmt"
+	"bytes"
 	"reflect"
 	"sort"
 	"sync"
@@ -95,7 +95,17 @@ func (reg *Registry) String() string {
 	reg.mutex.Unlock()
 
 	sort.Strings(keys)
-	return fmt.Sprintf("%s", keys)
+
+	buffer := new(bytes.Buffer)
+	buffer.WriteString("[")
+
+	for _, key := range keys {
+		buffer.WriteString("\n    ")
+		buffer.WriteString(key)
+	}
+
+	buffer.WriteString("\n]")
+	return buffer.String()
 }
 
 // DefaultRegistry is a global Registry object. Note that the global registry is
