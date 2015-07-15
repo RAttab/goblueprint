@@ -3,7 +3,7 @@
 package blueprint
 
 import (
-	"github.com/datacratic/goklog/klog"
+	"github.com/RAttab/goklog/klog"
 
 	"reflect"
 	"sync"

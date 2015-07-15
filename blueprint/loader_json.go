@@ -3,7 +3,7 @@
 package blueprint
 
 import (
-	"github.com/datacratic/gopath/path"
+	"github.com/RAttab/gopath/path"
 
 	"encoding/json"
 	"fmt"

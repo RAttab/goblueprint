@@ -6,7 +6,7 @@
 package blueprint_test
 
 import (
-	"github.com/datacratic/goblueprint/blueprint"
+	"github.com/RAttab/goblueprint/blueprint"
 
 	"fmt"
 )

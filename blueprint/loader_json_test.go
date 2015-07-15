@@ -25,7 +25,7 @@ func TestLoader_JSON(t *testing.T) {
 
         "#W": "X.Base",
 
-        "X!github.com/datacratic/goblueprint/blueprint/Struct": {
+        "X!github.com/RAttab/goblueprint/blueprint/Struct": {
             "I": 20,
             "#S": "string",
             "Base!Impl": {

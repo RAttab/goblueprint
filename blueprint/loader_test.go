@@ -3,10 +3,10 @@
 package blueprint
 
 import (
-	"github.com/datacratic/gopath/path"
+	"github.com/RAttab/gopath/path"
 
 	"fmt"
-	"github.com/datacratic/goset"
+	"github.com/RAttab/goset"
 	"reflect"
 	"testing"
 )
@@ -67,7 +67,7 @@ func TestLoader(t *testing.T) {
 
 	loader.TestLink(t, "W", "X.Base")
 
-	loader.TestType(t, "X", "github.com/datacratic/goblueprint/blueprint/Struct")
+	loader.TestType(t, "X", "github.com/RAttab/goblueprint/blueprint/Struct")
 	loader.TestAdd(t, "X.I", int(20))
 	loader.TestLink(t, "X.S", "string")
 	loader.TestType(t, "X.Base", "Impl")

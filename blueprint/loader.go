@@ -3,8 +3,8 @@
 package blueprint
 
 import (
-	"github.com/datacratic/goklog/klog"
-	"github.com/datacratic/gopath/path"
+	"github.com/RAttab/goklog/klog"
+	"github.com/RAttab/gopath/path"
 
 	"fmt"
 	"reflect"
